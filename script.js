@@ -1,3 +1,8 @@
+const SUPABASE_URL="https://sycppvqumnexnvhwiqqo.supabase.co";
+const SUPABASE_KEY="sb_publishable_lopUg2411JVThhGPVoZ-HA_e0e8Jdmj";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+let cloudUserId=null;
 const avatars=["🦊","🐼","🐸","🦁","🐯","🐨","🐵","🐰"];
 const phases=[
 {t:"Vila dos Números",i:"🔢",d:"Adição e subtração",q:[["Quanto é 8 + 7?",15],["Quanto é 20 - 6?",14],["Quanto é 9 + 5?",14],["Quanto é 18 - 9?",9],["Quanto é 12 + 6?",18]]},
