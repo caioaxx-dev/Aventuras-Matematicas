@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Aventuras Matemáticas - jogo educativo">
+<title>Aventuras Matemáticas</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="blob one"></div><div class="blob two"></div>
+<main id="app">
+
+<section id="start" class="screen active">
+<div class="card hero">
+<div class="logo">🧩</div>
+<span class="badge">🚀 CRUZEIRO HUB • JOGO EDUCATIVO</span>
+<h1>Aventuras<br><span>Matemáticas</span></h1>
+<p class="lead">Aprenda brincando e complete todas as aventuras!</p>
+<label for="nick">Escolha um apelido</label>
+<input id="nick" maxlength="14" placeholder="Ex.: Estrelinha" autocomplete="off">
+<small>Não use nome completo ou dados pessoais.</small>
+<h2>Escolha seu personagem</h2>
+<div id="avatars" class="avatars"></div>
+<button id="begin" class="primary big">Começar aventura ✨</button>
+<button id="how" class="link">📖 Como jogar?</button>
+<p id="err" class="error"></p>
+</div>
+</section>
+
+<section id="menu" class="screen">
+<div class="card">
+<div class="top">
+<div><small>AVENTUREIRO</small><h2 id="name"></h2></div>
+<div id="avatar" class="avatarbig"></div>
+</div>
+<div class="welcome">🎯 <div><b>Continue sua aventura!</b><br><small>Complete as fases para desbloquear as próximas.</small></div></div>
+<div id="phases" class="phases"></div>
+<div class="actions">
+<button id="instructions" class="secondary">📖 Instruções</button>
+<button id="reset" class="secondary">↻ Recomeçar</button>
+</div>
+</div>
+</section>
+
+<section id="game" class="screen">
+<div class="card">
+<div class="gamehead">
+<button id="back" class="icon" aria-label="Voltar ao menu">←</button>
+<div class="progresswrap">
+<div><b id="ptitle"></b><span id="qcount"></span></div>
+<div class="bar"><i id="bar"></i></div>
+</div>
+<b class="score">⭐ <span id="score">0</span></b>
+</div>
+<div id="content"></div>
+<div id="feedback" role="status" aria-live="polite"></div>
+<button id="next" class="primary hidden">Continuar ➜</button>
+</div>
+</section>
+
+<section id="info" class="screen">
+<div class="card">
+<span class="badge">💡 DICAS</span>
+<h1>Como jogar</h1>
+<div class="instruction"><b>1</b><p>Escolha apelido e personagem.</p></div>
+<div class="instruction"><b>2</b><p>Complete as fases na ordem.</p></div>
+<div class="instruction"><b>3</b><p>Escolha uma resposta e veja o feedback.</p></div>
+<div class="instruction"><b>4</b><p>Errou? Tente novamente e aprenda!</p></div>
+<div class="access">
+<h2>♿ Acessibilidade</h2>
+<ul>
+<li>Botões grandes e textos legíveis.</li>
+<li>Contraste e foco visível.</li>
+<li>Feedback imediato.</li>
+<li>Leitura por voz das instruções.</li>
+<li>Layout adaptado ao celular.</li>
+</ul>
+</div>
+<button id="backstart" class="primary">Voltar</button>
+<button id="speak" class="secondary">🔊 Ouvir instruções</button>
+</div>
+</section>
+
+<section id="result" class="screen">
+<div class="card result">
+<div id="ricon" class="ricon">🎉</div>
+<span class="badge">FASE CONCLUÍDA</span>
+<h1 id="rtitle">Muito bem!</h1>
+<p id="rmsg" class="lead"></p>
+<div class="rscore">⭐ <span id="rscore">0</span> pontos</div>
+<button id="rnext" class="primary big">Continuar ➜</button>
+<button id="rmenu" class="secondary">Voltar ao menu</button>
+</div>
+</section>
+
+</main>
+<footer>Projeto acadêmico • Aventuras Matemáticas</footer>
+<script src="script.js"></script>
+</body>
+</html>
