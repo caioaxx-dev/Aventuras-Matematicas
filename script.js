@@ -22,5 +22,8 @@ function finish(){if(!s.done.includes(s.p))s.done.push(s.p);s.scores[s.p]=s.scor
 function reset(){if(confirm("Apagar o progresso salvo neste navegador?")){localStorage.removeItem("aventurasMatematicas");location.reload()}}
 function speak(){if("speechSynthesis"in window){speechSynthesis.cancel();speechSynthesis.speak(new SpeechSynthesisUtterance("Escolha um apelido e um personagem. Complete as fases em ordem. Escolha uma resposta e receba feedback imediatamente. Se errar, tente novamente. Boa aventura!"))}}
 $("begin").onclick=()=>{let n=$("nick").value.trim();if(!n){$("err").textContent="Escolha um apelido para começar.";return}s.nick=n;save();menu();show("menu")};
-$("how").onclick=()=>show("info");$("instructions").onclick=()=>show("info");$("backstart").onclick=()=>show("start");$("speak").onclick=speak;$("next").onclick=next;$("back").onclick=()=>{menu();show("menu")};$("rnext").onclick=()=>show("menu");$("rmenu").onclick=()=>{menu();show("menu")};$("reset").onclick=reset;
+$("how").onclick=()=>show("info");$("instructions").onclick=()=>show("info");$("backstart").onclick=()=>show("start");$("speak").onclick=speak;$("next").onclick=next;$("back").onclick=()=>{menu();show("menu")};$("rnext").onclick=()=>{
+    menu();
+    show("menu");
+};$("rmenu").onclick=()=>{menu();show("menu")};$("reset").onclick=reset;
 $("nick").value=s.nick;avatarsUI();
