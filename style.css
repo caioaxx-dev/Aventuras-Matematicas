@@ -328,3 +328,15 @@ footer{color:#123e5c;text-shadow:0 1px #fff8;margin:17px 0 0}footer span:last-ch
     overflow-wrap: break-word;
   }
 }
+/* Destaque para o slogan no rodapé */
+footer {
+  color: #ffffff;
+}
+
+footer p,
+footer span,
+footer small {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
