@@ -184,39 +184,40 @@ function avatarsUI(){
 function menu(){
     $("name").textContent=s.nick||"Aventureiro";
     $("avatar").textContent=s.avatar;
+    const unlockedCount=Math.max(1,Math.min(phases.length,Number(s.unlocked)||1));
+    const doneCount=Array.isArray(s.done)?s.done.length:0;
+    const bestScore=Object.values(s.scores||{}).reduce((best,value)=>Math.max(best,Number(value)||0),0);
+    $("unlocked-count").textContent=`${unlockedCount} de ${phases.length}`;
+    $("done-count").textContent=String(doneCount);
+    $("best-score").textContent=`${bestScore} pts`;
 
     $("phases").innerHTML=phases
         .map((p,i)=>{
             let done=s.done.includes(i);
             let lock=i>=s.unlocked;
-
             return `
-                <button
-                    class="phase"
-                    ${lock?"disabled":""}
-                    data-p="${i}">
-                    
-                    <div class="pi">${p.i}</div>
-
+                <button class="phase world-${i+1}" ${lock?"disabled":""} data-p="${i}" aria-label="${lock?"Fase bloqueada: ":"Abrir fase: "}${p.t}">
+                    <div class="phase-head">
+                        <div class="pi">${p.i}</div>
+                        <span class="phase-index">${done?"⭐ CONCLUÍDA":lock?"🔒 BLOQUEADA":"⭐ 0/5"}</span>
+                    </div>
+                    <div class="world-illustration" aria-hidden="true">${["🏡","🌳🍎🌳","🏛️","🕰️","💎🏆"][i]}</div>
                     <div class="pinfo">
-                        <b>${i+1}. ${p.t}</b>
+                        <b>${p.t}</b>
                         <small>${p.d}</small>
                     </div>
-
-                    <span class="status ${done?"done":""}">
-                        ${done?"✓ Concluída":lock?"🔒 Bloqueada":"Jogar ➜"}
-                    </span>
-
+                    <div class="phase-bottom">
+                        <span class="status ${done?"done":""}">${done?"⭐ Concluída":lock?"🔒 Bloqueada":"⭐ ${s.scores[i]||0} pts"}</span>
+                        <span class="phase-cta">${lock?"Bloqueada":"JOGAR ▶"}</span>
+                    </div>
                 </button>
             `;
         })
         .join("");
 
-    document
-        .querySelectorAll(".phase:not(:disabled)")
-        .forEach(b=>{
-            b.onclick=()=>start(+b.dataset.p);
-        });
+    document.querySelectorAll(".phase:not(:disabled)").forEach(b=>{
+        b.onclick=()=>start(+b.dataset.p);
+    });
 }
 
 
@@ -245,6 +246,7 @@ function opts(c){
 
 function start(i){
     s.p=i;
+    document.body.dataset.world=String(i+1);
     s.q=0;
     s.score=0;
 
@@ -253,6 +255,39 @@ function start(i){
 }
 
 
+/* Apoio visual contextual: mostra somente o elemento relacionado à pergunta. */
+function sceneFor(world, question){
+  const text=String(question||"").toLowerCase();
+  if(world===0) return `<div class="scene-math" aria-label="Conta matemática">🔢 <span>＋ −</span></div>`;
+  if(world===1){
+    // Representa a multiplicação como N grupos com M objetos em cada grupo.
+    const match = text.match(/(\d+)\s*[×x]\s*(\d+)/);
+    if(match){
+      const groups=Number(match[1]), perGroup=Number(match[2]);
+      const objects=Array.from({length:perGroup},()=>`<span class="group-object">🍎</span>`).join("");
+      return `<div class="scene-groups" role="img" aria-label="${groups} grupos com ${perGroup} maçãs em cada grupo">${Array.from({length:groups},(_,i)=>`<div class="object-group" style="--cols:${Math.min(3,perGroup)}" aria-label="Grupo ${i+1}: ${perGroup} maçãs">${objects}</div>`).join("")}</div>`;
+    }
+    if(text.includes("÷")) return `<div class="scene-math" aria-label="Divisão">➗ <span>dividir em partes iguais</span></div>`;
+    return `<div class="scene-math" aria-label="Operação matemática">✖️ <span>× ÷</span></div>`;
+  }
+  if(world===2){
+    let shape='triangle', label='Triângulo';
+    if(text.includes('quadrado')){shape='square';label='Quadrado'}
+    else if(text.includes('pentágono')){shape='pentagon';label='Pentágono'}
+    else if(text.includes('retângulo')){shape='rectangle';label='Retângulo'}
+    else if(text.includes('hexágono')){shape='hexagon';label='Hexágono'}
+    else if(text.includes('qual figura tem 3 lados')){shape='triangle';label='Triângulo'}
+    return `<div class="scene-single-shape" role="img" aria-label="${label}"><span class="shape-${shape}"></span></div>`;
+  }
+  if(world===3){
+    if(text.includes('minutos')) return `<div class="scene-clock-icon" aria-label="Relógio">🕒</div>`;
+    return `<div class="scene-time-icon" aria-label="Tempo">⏰</div>`;
+  }
+  if(text.includes('lados')) return `<div class="scene-single-shape" role="img" aria-label="Hexágono"><span class="shape-hexagon"></span></div>`;
+  if(text.includes('minutos')||text.includes('horas')) return `<div class="scene-clock-icon" aria-label="Relógio">🕒</div>`;
+  return `<div class="scene-math" aria-label="Desafio de matemática">🔢 <span>＋ × ÷</span></div>`;
+}
+
 /* =========================
    RENDERIZAR QUESTÃO
 ========================= */
@@ -260,6 +295,7 @@ function start(i){
 function render(){
     let p=phases[s.p];
     let q=p.q[s.q];
+    document.body.dataset.world=String(s.p+1);
 
     $("ptitle").textContent=p.t;
     $("qcount").textContent=`${s.q+1}/${p.q.length}`;
@@ -269,16 +305,14 @@ function render(){
     $("feedback").className="";
     $("feedback").textContent="";
 
+    $("next").textContent="Próximo desafio →";
     $("next").classList.add("hidden");
 
     $("content").innerHTML=`
-        <div class="questionbox">
+        <div class="questionbox world-question world-question-${s.p+1}">
             <div class="tag">${p.i} ${p.d}</div>
-
-            <div class="question">
-                ${q[0]}
-            </div>
-
+            <div class="question-scene" aria-hidden="true">${sceneFor(s.p,q[0])}</div>
+            <div class="question">${q[0]}</div>
             <div class="options">
                 ${opts(q[1])
                     .map(x=>`
@@ -306,33 +340,25 @@ function render(){
 ========================= */
 
 function answer(v,b){
-    let c=phases[s.p].q[s.q][1];
-
-    document
-        .querySelectorAll(".answer")
-        .forEach(x=>x.disabled=true);
+    const c=phases[s.p].q[s.q][1];
+    if(b.disabled)return;
 
     if(v===c){
+        document.querySelectorAll(".answer").forEach(x=>x.disabled=true);
         b.classList.add("correct");
-
         s.score+=100;
-
         $("feedback").className="ok";
-        $("feedback").textContent=
-            "🎉 Muito bem! Resposta correta!";
-
+        $("feedback").textContent="🎉 CORRETO! +100 pontos! 🦊";
+        $("next").textContent=s.q<phases[s.p].q.length-1?"Próximo desafio →":"Concluir fase 🏆";
+        $("next").classList.remove("hidden");
+        save();
     }else{
         b.classList.add("wrong");
-
+        b.disabled=true;
         $("feedback").className="bad";
-        $("feedback").textContent=
-            `💡 A resposta correta é ${c}. Tente aprender com o desafio!`;
+        $("feedback").textContent="🙈 Quase! Tente outra resposta.";
     }
-
     $("score").textContent=s.score;
-    $("next").classList.remove("hidden");
-
-    save();
 }
 
 
@@ -478,8 +504,13 @@ $("back").onclick=()=>{
 };
 
 $("rnext").onclick=()=>{
-    menu();
-    show("menu");
+    const nextPhase=s.p+1;
+    if(nextPhase<phases.length&&nextPhase<s.unlocked){
+        start(nextPhase);
+    }else{
+        menu();
+        show("menu");
+    }
 };
 
 $("rmenu").onclick=()=>{

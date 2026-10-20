@@ -3,100 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Aventuras Matemáticas - jogo educativo">
-<title>Aventuras Matemáticas</title>
+<meta name="description" content="Aventuras Matemáticas — jogos educativos para aprender matemática brincando.">
+<meta name="theme-color" content="#073b70">
+<title>Aventuras Matemáticas | Expedição dos Números</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="blob one"></div><div class="blob two"></div>
-<main id="app">
+  <div class="expedition-sky" aria-hidden="true"><span class="sky-star s1">✦</span><span class="sky-star s2">✧</span><span class="sky-star s3">✦</span><span class="sky-cloud c1">☁</span><span class="sky-cloud c2">☁</span></div>
+<div class="site-shell">
+<header class="site-header">
+  <a class="brand" href="#" aria-label="Aventuras Matemáticas - início" onclick="location.reload();return false;">
+    <span class="brand-mark" aria-hidden="true">✦</span>
+    <span class="brand-copy"><strong>Aventuras Matemáticas</strong><small>EXPLORE · DESCUBRA · APRENDA</small></span>
+  </a>
+  <span class="hub-label"><span class="hub-dot"></span> MISSÃO DE APRENDIZAGEM</span>
+</header>
 
+<main id="app">
 <section id="start" class="screen active">
-<div class="card hero">
-<div class="logo">🧩</div>
-<span class="badge">🚀 CRUZEIRO HUB • JOGO EDUCATIVO</span>
-<h1>Aventuras<br><span>Matemáticas</span></h1>
-<p class="lead">Aprenda brincando e complete todas as aventuras!</p>
-<label for="nick">Escolha um apelido</label>
-<input id="nick" maxlength="14" placeholder="Ex.: Estrelinha" autocomplete="off">
-<small>Não use nome completo ou dados pessoais.</small>
-<h2>Escolha seu personagem</h2>
-<div id="avatars" class="avatars"></div>
-<button id="begin" class="primary big">Começar aventura ✨</button>
-<button id="how" class="link">📖 Como jogar?</button>
-<p id="err" class="error"></p>
-</div>
+  <div class="welcome-layout">
+    <div class="welcome-copy">
+      <span class="eyebrow"><span class="eyebrow-dot"></span> SEU PRÓXIMO DESAFIO COMEÇA AQUI</span>
+      <h1>AVENTURAS<br><span>MATEMÁTICAS</span></h1>
+      <p class="lead">Aprender é uma grande aventura! Explore mundos, resolva desafios e conquiste estrelas.</p>
+      <div class="feature-points">
+        <span><b>✓</b> Desafios interativos</span>
+        <span><b>✓</b> Progresso salvo</span>
+        <span><b>✓</b> Feito para aprender brincando</span>
+      </div>
+    </div>
+    <div class="welcome-art" aria-hidden="true">
+      <div class="art-sun"></div><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><div class="hero-rainbow"></div><div class="hero-mountain mountain-back"></div><div class="hero-mountain mountain-front"></div><div class="hero-path"></div>
+      <div class="floating-tile tile-blue">＋</div><div class="floating-tile tile-yellow">×</div>
+      <div class="floating-tile tile-green">÷</div><div class="floating-tile tile-pink">＝</div>
+      <div class="art-center"><span>🦊</span><strong>AVENTUREIRO</strong><small>PRONTO PRA JOGAR!</small></div>
+      <div class="art-star star-one">✦</div><div class="art-star star-two">✧</div>
+    </div>
+  </div>
+  <div class="start-panel">
+    <div class="panel-heading"><span class="step-number">01</span><div><h2>Prepare sua expedição</h2><p>Escolha como quer aparecer no jogo.</p></div></div>
+    <div class="profile-fields">
+      <div class="field"><label for="nick">Seu apelido</label><input id="nick" maxlength="14" placeholder="Ex.: Estrelinha" autocomplete="off"><small>Não use nome completo ou dados pessoais.</small></div>
+      <div class="field avatar-field"><span class="field-label">Escolha seu personagem</span><div id="avatars" class="avatars"></div></div>
+    </div>
+    <p id="err" class="error" role="alert"></p>
+    <div class="start-actions"><button id="begin" class="primary big">▶ JOGAR <span aria-hidden="true">→</span></button><button id="how" class="text-button">Como jogar?</button></div>
+  </div>
 </section>
 
 <section id="menu" class="screen">
-<div class="card">
-<div class="top">
-<div><small>AVENTUREIRO</small><h2 id="name"></h2></div>
-<div id="avatar" class="avatarbig"></div>
-</div>
-<div class="welcome">🎯 <div><b>Continue sua aventura!</b><br><small>Complete as fases para desbloquear as próximas.</small></div></div>
-<div id="phases" class="phases"></div>
-<div class="actions">
-<button id="instructions" class="secondary">📖 Instruções</button>
-<button id="reset" class="secondary">↻ Recomeçar</button>
-</div>
-</div>
+  <div class="dashboard-intro">
+    <div><span class="eyebrow"><span class="eyebrow-dot"></span> DIÁRIO DE EXPLORAÇÃO</span><h1>Olá, <span id="name">Aventureiro</span>! <span class="wave">👋</span></h1><p class="lead">Explore cinco mundos mágicos e desbloqueie novas fases!</p></div>
+    <div id="avatar" class="avatarbig" aria-label="Seu personagem"></div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-card"><span class="stat-icon stat-blue">🗺️</span><div><small>FASES LIBERADAS</small><strong id="unlocked-count">1 de 5</strong></div></div>
+    <div class="stat-card"><span class="stat-icon stat-green">🏆</span><div><small>FASES CONCLUÍDAS</small><strong id="done-count">0</strong></div></div>
+    <div class="stat-card"><span class="stat-icon stat-yellow">⭐</span><div><small>MELHOR PONTUAÇÃO</small><strong id="best-score">0 pts</strong></div></div>
+  </div>
+  <div class="section-heading"><div><span class="eyebrow">MAPA DOS MUNDOS</span><h2>Qual trilha vamos explorar hoje?</h2></div><span class="section-note">5 mundos · novos desafios</span></div>
+  <div id="phases" class="phases"></div>
+  <div class="dashboard-actions"><button id="instructions" class="secondary">ⓘ Instruções do jogo</button><button id="reset" class="secondary secondary-muted">↻ Recomeçar progresso</button></div>
 </section>
 
 <section id="game" class="screen">
-<div class="card">
-<div class="gamehead">
-<button id="back" class="icon" aria-label="Voltar ao menu">←</button>
-<div class="progresswrap">
-<div><b id="ptitle"></b><span id="qcount"></span></div>
-<div class="bar"><i id="bar"></i></div>
-</div>
-<b class="score">⭐ <span id="score">0</span></b>
-</div>
-<div id="content"></div>
-<div id="feedback" role="status" aria-live="polite"></div>
-<button id="next" class="primary hidden">Continuar ➜</button>
-</div>
+  <div class="game-banner">
+    <button id="back" class="icon" aria-label="Voltar ao menu">←</button>
+    <div class="game-title"><span class="eyebrow">MISSÃO EM ANDAMENTO</span><h1 id="ptitle">Desafio</h1></div>
+    <div class="score"><span>⭐</span><div><small>PONTOS</small><strong id="score">0</strong></div></div>
+  </div>
+  <div class="game-progress"><div class="progress-label"><span>Seu progresso</span><strong id="qcount">1/5</strong></div><div class="bar"><i id="bar"></i></div></div>
+  <div class="game-card"><div id="content"></div><div id="feedback" role="status" aria-live="polite"></div><button id="next" class="primary hidden">Próximo desafio <span aria-hidden="true">→</span></button></div>
 </section>
 
 <section id="info" class="screen">
-<div class="card">
-<span class="badge">💡 DICAS</span>
-<h1>Como jogar</h1>
-<div class="instruction"><b>1</b><p>Escolha apelido e personagem.</p></div>
-<div class="instruction"><b>2</b><p>Complete as fases na ordem.</p></div>
-<div class="instruction"><b>3</b><p>Escolha uma resposta e veja o feedback.</p></div>
-<div class="instruction"><b>4</b><p>Errou? Tente novamente e aprenda!</p></div>
-<div class="access">
-<h2>♿ Acessibilidade</h2>
-<ul>
-<li>Botões grandes e textos legíveis.</li>
-<li>Contraste e foco visível.</li>
-<li>Feedback imediato.</li>
-<li>Leitura por voz das instruções.</li>
-<li>Layout adaptado ao celular.</li>
-</ul>
-</div>
-<button id="backstart" class="primary">Voltar</button>
-<button id="speak" class="secondary">🔊 Ouvir instruções</button>
-</div>
+  <div class="page-card"><span class="eyebrow"><span class="eyebrow-dot"></span> GUIA DO AVENTUREIRO</span><h1>Como jogar</h1><p class="lead">É simples: explore, responda e aprenda com cada desafio.</p>
+    <div class="instruction"><b>1</b><p><strong>Monte seu perfil.</strong><br>Escolha um apelido e um personagem.</p></div>
+    <div class="instruction"><b>2</b><p><strong>Escolha uma missão.</strong><br>As fases são liberadas conforme você avança.</p></div>
+    <div class="instruction"><b>3</b><p><strong>Responda aos desafios.</strong><br>Você recebe feedback a cada resposta certa ou errada.</p></div>
+    <div class="instruction"><b>4</b><p><strong>Continue aprendendo.</strong><br>Ganhe pontos e desbloqueie novos mundos.</p></div>
+    <div class="access"><h2>♿ Acessibilidade</h2><ul><li>Botões grandes e textos legíveis.</li><li>Contraste e foco visível.</li><li>Feedback imediato.</li><li>Leitura por voz das instruções.</li><li>Layout adaptado para celular e computador.</li></ul></div>
+    <button id="backstart" class="primary">Voltar ao jogo</button><button id="speak" class="secondary">🔊 Ouvir instruções</button>
+  </div>
 </section>
 
 <section id="result" class="screen">
-<div class="card result">
-<div id="ricon" class="ricon">🎉</div>
-<span class="badge">FASE CONCLUÍDA</span>
-<h1 id="rtitle">Muito bem!</h1>
-<p id="rmsg" class="lead"></p>
-<div class="rscore">⭐ <span id="rscore">0</span> pontos</div>
-<button id="rnext" class="primary big">Continuar ➜</button>
-<button id="rmenu" class="secondary">Voltar ao menu</button>
-</div>
+  <div class="result-card"><div id="ricon" class="result-icon">🏆</div><span class="eyebrow"><span class="eyebrow-dot"></span> MISSÃO FINALIZADA</span><h1 id="rtitle">Mandou bem!</h1><p id="rmsg" class="lead"></p><div class="result-score"><small>SUA PONTUAÇÃO</small><strong><span id="rscore">0</span> <small>pontos</small></strong></div><button id="rnext" class="primary big">Ver próxima aventura <span aria-hidden="true">→</span></button><button id="rmenu" class="secondary">Voltar ao painel</button></div>
 </section>
-
 </main>
-<footer>Projeto acadêmico • Aventuras Matemáticas</footer>
-
+<footer><span class="footer-mark">✦</span> Projeto acadêmico · Aventuras Matemáticas <span>Aprender brincando é melhor.</span></footer>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="script.js"></script>
 </body>
