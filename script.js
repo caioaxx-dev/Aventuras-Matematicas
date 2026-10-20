@@ -9,7 +9,7 @@ const avatars=["🦊","🐼","🐸","🦁","🐯","🐨","🐵","🐰"];
 const phases=[
 {t:"Vila dos Números",i:"🔢",d:"Adição e subtração",q:[["Quanto é 8 + 7?",15],["Quanto é 20 - 6?",14],["Quanto é 9 + 5?",14],["Quanto é 18 - 9?",9],["Quanto é 12 + 6?",18]]},
 {t:"Floresta da Multiplicação",i:"✖️",d:"Multiplicação e divisão",q:[["Quanto é 3 × 4?",12],["Quanto é 5 × 6?",30],["Quanto é 20 ÷ 4?",5],["Quanto é 7 × 3?",21],["Quanto é 24 ÷ 6?",4]]},
-{t:"Cidade das Formas",i:"🔺",d:"Figuras geométricas",q:[["Quantos lados tem um triângulo?",3],["Quantos lados tem um quadrado?",4],["Quantos lados tem um pentágono?",5],["Quantos lados tem um triângulo?",3],["Quantos lados tem um retângulo?",4]]},
+{t:"Cidade das Formas",i:"🔺",d:"Figuras geométricas",q:[["Quantos lados tem um triângulo?",3],["Quantos lados tem um quadrado?",4],["Quantos lados tem um pentágono?",5],["Qual figura não tem lados retos?","Círculo",["Círculo","Triângulo","Quadrado","Pentágono"]],["Quantos lados tem um retângulo?",4]]},
 {t:"Relógio Mágico",i:"🕐",d:"Horas e duração",q:[["Quantos minutos há em 1 hora?",60],["Quantas horas há em meio dia?",12],["Quantos minutos há em meia hora?",30],["Quantos minutos há em 2 horas?",120],["Quantos minutos há em 1/4 de hora?",15]]},
 {t:"Desafio Final",i:"🏆",d:"Revisão matemática",q:[["Quanto é 10 + 15?",25],["Quanto é 6 × 4?",24],["Quantos lados tem um hexágono?",6],["Quantos minutos há em 1 hora?",60],["Quanto é 30 ÷ 5?",6]]}
 ];
@@ -330,6 +330,9 @@ function sceneFor(world,question){
         }else if(text.includes("hexágono")){
             shape="hexagon";
             label="Hexágono";
+        }else if(text.includes("não tem lados retos")){
+            shape="circle";
+            label="Círculo";
         }else if(text.includes("qual figura tem 3 lados")){
             shape="triangle";
             label="Triângulo";
@@ -386,9 +389,9 @@ function render(){
             </div>
             <div class="question">${q[0]}</div>
             <div class="options">
-                ${opts(q[1])
+                ${(q[2] || opts(q[1]))
                     .map(x=>`
-                        <button class="answer" data-v="${x}">
+                        <button class="answer" data-v="${String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}">
                             ${x}
                         </button>
                     `)
@@ -398,7 +401,11 @@ function render(){
     `;
 
     document.querySelectorAll(".answer").forEach(b=>{
-        b.onclick=()=>answer(+b.dataset.v,b);
+        b.onclick=()=>{
+            const correct=phases[s.p].q[s.q][1];
+            const chosen=typeof correct === "number" ? Number(b.dataset.v) : b.dataset.v;
+            answer(chosen,b);
+        };
     });
 }
 
