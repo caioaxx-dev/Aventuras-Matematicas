@@ -307,12 +307,13 @@ body[data-world="5"] .game-card:before{background-image:linear-gradient(#1a21404
 footer{color:#123e5c;text-shadow:0 1px #fff8;margin:17px 0 0}footer span:last-child{color:#286d31}
 @media(max-width:900px){.welcome-layout{grid-template-columns:1fr 1fr}.phases{grid-template-columns:repeat(2,minmax(0,1fr))}.phase,.phase:nth-child(4),.phase:nth-child(5){grid-column:auto}.world-illustration{font-size:64px}.pinfo{margin-top:85px}}
 @media(max-width:620px){.site-shell{width:94%;padding-top:8px}.site-header{padding:8px 10px}.brand-copy strong{font-size:18px}.brand-copy small{font-size:8px;letter-spacing:1px}.hub-label{display:none}.welcome-layout{grid-template-columns:1fr}.welcome-copy{min-height:300px;padding:22px}.welcome-copy h1{font-size:clamp(44px,13vw,65px)}.welcome-art{min-height:300px}.start-panel{padding:15px}.profile-fields{grid-template-columns:1fr}.start-actions{align-items:stretch;flex-direction:column}.primary.big{width:100%;min-width:0}.stats-row{grid-template-columns:1fr}.phases{grid-template-columns:1fr}.phase,.phase:nth-child(4),.phase:nth-child(5){grid-column:auto;min-height:230px}.world-illustration{font-size:65px;top:38%}.pinfo{margin-top:85px}.game-banner{padding:9px;gap:7px}.game-title h1{font-size:20px}.score{padding:6px}.game-card{padding:12px;min-height:350px}.question-scene{min-height:100px}.options{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.answer{min-height:60px;font-size:24px}.question{font-size:29px;padding:7px 10px}.scene-groups{gap:5px}.object-group{min-width:45px;max-width:18%;padding:3px;font-size:13px;border-width:2px}.group-object{font-size:12px}.scene-single-shape{height:82px}.shape-triangle{border-left-width:30px;border-right-width:30px;border-bottom-width:55px}.shape-square{width:52px;height:52px}.shape-rectangle{width:72px;height:45px}.result-card{padding:20px 15px}footer{font-size:10px}}
-/* Corrige a sombra duplicada do título das fases */
+/* Correção do título do mapa dos mundos */
 .section-heading h2 {
-  text-shadow: none !important;
-  line-height: 1.25;
-  letter-spacing: normal;
-  overflow-wrap: break-word;
+  color: #235b2a !important;
+  text-shadow: 0 2px 0 #d5b96b !important;
+  -webkit-text-stroke: 0 !important;
+  opacity: 1 !important;
+  filter: none !important;
 }
 
 @media (max-width: 620px) {
@@ -322,5 +323,8 @@ footer{color:#123e5c;text-shadow:0 1px #fff8;margin:17px 0 0}footer span:last-ch
 
   .section-heading h2 {
     font-size: clamp(21px, 6vw, 28px);
+    line-height: 1.25;
+    letter-spacing: normal;
+    overflow-wrap: break-word;
   }
 }
