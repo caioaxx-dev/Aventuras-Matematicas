@@ -9,7 +9,7 @@ const avatars=["🦊","🐼","🐸","🦁","🐯","🐨","🐵","🐰"];
 const phases=[
 {t:"Vila dos Números",i:"🔢",d:"Adição e subtração",q:[["Quanto é 8 + 7?",15],["Quanto é 20 - 6?",14],["Quanto é 9 + 5?",14],["Quanto é 18 - 9?",9],["Quanto é 12 + 6?",18]]},
 {t:"Floresta da Multiplicação",i:"✖️",d:"Multiplicação e divisão",q:[["Quanto é 3 × 4?",12],["Quanto é 5 × 6?",30],["Quanto é 20 ÷ 4?",5],["Quanto é 7 × 3?",21],["Quanto é 24 ÷ 6?",4]]},
-{t:"Cidade das Formas",i:"🔺",d:"Figuras geométricas",q:[["Quantos lados tem um triângulo?",3],["Quantos lados tem um quadrado?",4],["Quantos lados tem um pentágono?",5],["Qual figura tem 3 lados?",3],["Quantos lados tem um retângulo?",4]]},
+{t:"Cidade das Formas",i:"🔺",d:"Figuras geométricas",q:[["Quantos lados tem um triângulo?",3],["Quantos lados tem um quadrado?",4],["Quantos lados tem um pentágono?",5],["Quantos lados tem um triângulo?",3],["Quantos lados tem um retângulo?",4]]},
 {t:"Relógio Mágico",i:"🕐",d:"Horas e duração",q:[["Quantos minutos há em 1 hora?",60],["Quantas horas há em meio dia?",12],["Quantos minutos há em meia hora?",30],["Quantos minutos há em 2 horas?",120],["Quantos minutos há em 1/4 de hora?",15]]},
 {t:"Desafio Final",i:"🏆",d:"Revisão matemática",q:[["Quanto é 10 + 15?",25],["Quanto é 6 × 4?",24],["Quantos lados tem um hexágono?",6],["Quantos minutos há em 1 hora?",60],["Quanto é 30 ÷ 5?",6]]}
 ];
